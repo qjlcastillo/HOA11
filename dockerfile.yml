@@ -1,0 +1,48 @@
+---
+- hosts: web_servers
+  become: true
+  pre_tasks:
+
+  - name: install docker
+    shell:
+      sudo apt-get install docker.io -y
+    when: ansible_distribution == "Ubuntu"
+
+
+  - name: start / enable docker service
+    service:
+      name: docker
+      state: started
+      enabled: true
+
+  - name: restart docker service
+    service:
+      name: docker
+      state: restarted
+      enabled: true
+    
+- hosts: db_servers
+  become: true
+  pre_tasks:
+
+  - name: install docker
+    shell:
+      sudo apt-get install docker.io -y
+    when: ansible_distribution == "Ubuntu"
+
+
+  - name: start / enable docker service
+    service:
+      name: docker
+      state: started
+      enabled: true
+
+  - name: restart docker service
+    service:
+      name: docker
+      state: restarted
+      enabled: true
+
+
+
+
